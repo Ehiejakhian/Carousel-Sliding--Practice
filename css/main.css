@@ -1,6 +1,140 @@
+@charset "UTF-8";
 *, *::after, *::before {
   padding: 0;
   margin: 0;
   font-family: "outfit";
   box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #110505;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+  gap: 0;
+  font-size: 18px;
+  color: #fff;
+}
+
+main {
+  width: min(600px, 90%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+  gap: 20px;
+  counter-reset: section;
+}
+
+h2 {
+  counter-increment: section;
+}
+h2::before {
+  content: counter(section);
+  display: inline-block;
+  background-color: #e58a06;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.carousel {
+  width: 100%;
+  height: 400px;
+  overflow-x: auto;
+  position: relative;
+  display: flex;
+  justify-content: normal;
+  align-items: center;
+  flex-flow: row;
+  gap: 10px;
+  scroll-behavior: smooth;
+  anchor-name: --carousel, --forMarkers;
+  scroll-snap-type: x mandatory;
+  scroll-marker-group: after;
+}
+.carousel::scroll-marker-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: row;
+  gap: 10px;
+  position-anchor: --forMarkers;
+  position-area: bottom center;
+  width: 100%;
+}
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+.carousel::scroll-button(right), .carousel::scroll-button(left) {
+  content: "→";
+  border: none;
+  color: #110505;
+  background-color: #e58a06;
+  font-size: 2rem;
+  font-family: "outfit";
+  cursor: pointer;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  transition: all 0.3s;
+  position: fixed;
+  position-anchor: --carousel;
+  position-area: right center;
+  translate: -50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: row;
+  gap: 0;
+}
+.carousel::scroll-button(right):disabled, .carousel::scroll-button(left):disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.carousel::scroll-button(left) {
+  content: "←";
+  position-area: left center;
+  translate: 50%;
+}
+.carousel > * {
+  position: relative;
+  scroll-snap-align: start;
+}
+.carousel > * img {
+  border-radius: 20px;
+  height: 100%;
+  display: block;
+}
+.carousel > * figcaption {
+  position: absolute;
+  height: 100%;
+  bottom: 0;
+  width: 100%;
+  background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.7));
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  flex-flow: column;
+  gap: 10px;
+}
+.carousel > *::scroll-marker {
+  content: "";
+  height: 1rem;
+  width: 1rem;
+  background-color: #aaa;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.carousel > *::scroll-marker:target-current {
+  background-color: #e58a06;
 }/*# sourceMappingURL=main.css.map */
